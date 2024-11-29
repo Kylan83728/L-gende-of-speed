@@ -75,24 +75,24 @@ local Toggle = farmTab:CreateToggle({
    CurrentValue = false,
    Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
    Callback = function(Value)
-   local args = {
+local args = {
     [1] = "collectOrb",
     [2] = "Gem",
     [3] = "City"
 }
 
- isHitting = Value
+isHitting = Value
 
-        if isHitting then
-            -- Lancer une boucle non bloquante
-            task.spawn(function()
-                while isHitting do
-
-game:GetService("ReplicatedStorage").rEvents.orbEvent:FireServer(unpack(args))
-task.wait(0.1) -- Pause
-end
-            end)
+if isHitting then
+    -- Lancer une boucle non bloquante
+    task.spawn(function()
+        while isHitting do
+            game:GetService("ReplicatedStorage").rEvents.orbEvent:FireServer(unpack(args))
+            task.wait(0.05) -- Réduit le temps de pause pour une exécution plus rapide
         end
+    end)
+end
+N'oubliez pas de tester votre code pour vous assurer qu'il fonctionne correctement sans surcharger le serveur !
    -- The function that takes place when the toggle is pressed
    -- The variable (Value) is a boolean on whether the toggle is true or false
    end,
